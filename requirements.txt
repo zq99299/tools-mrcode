@@ -1,0 +1,7 @@
+# 打包，生成分发
+build==1.2.1
+# 上传分发
+twine==5.1.1
+
+# JSON PATH 工具
+jsonpath_ng==1.6.1

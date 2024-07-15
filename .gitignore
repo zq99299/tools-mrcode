@@ -1,0 +1,5 @@
+.venv
+.idea
+build
+dist
+src/tools_mrcode.egg-info
