@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tools_mrcode"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
   { name="mrcode", email="99299684@qq.com" },
 ]
-description = "一个 JAVA 程序员，学习使用 Python 过程中，编写的一些工具，个人感觉能提高开发速度"
+description = "学习使用 Python 过程中，编写的一些工具"
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [
