@@ -2,7 +2,7 @@ name: 推送 🐍 分发 📦 到 PyPI 或 TestPyPI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main , dev ]
 
 jobs:
   # 定义工作流程，这里主要是构建
@@ -11,34 +11,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    # https://github.com/marketplace/actions/setup-python
-    - name: 设置 Python 版本
-      uses: actions/setup-python@v5
-      with:
-        # 使用 python 版本
-        python-version: "3.12.4"
+      # https://github.com/marketplace/actions/setup-python
+      - name: 设置 Python 版本
+        uses: actions/setup-python@v5
+        with:
+          # 使用 python 版本
+          python-version: "3.12.4"
 
-    # 安装 build
-    - name: 安装 pypa/build
-      run: >-
-        python3 -m
-        pip install
-        build
-        --user
+      # 安装 build
+      - name: 安装 pypa/build
+        run: >-
+          python3 -m
+          pip install
+          build
+          --user
 
-    # 构建
-    - name: 构建分发包
-      run: python3 -m build
+      # 构建
+      - name: 构建分发包
+        run: python3 -m build
 
-    # 上传
-    - name: 上传分发包
-      uses: actions/upload-artifact@v3
-      with:
-        # 上传工件，记住这个名字，后面流程会用到
-        name: python-package-distributions
-        path: dist/
+      # 上传
+      - name: 上传分发包
+        uses: actions/upload-artifact@v3
+        with:
+          # 上传工件，记住这个名字，后面流程会用到
+          name: python-package-distributions
+          path: dist/
 
   publish-to-pypi:
     name: >-
@@ -55,13 +55,13 @@ jobs:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
 
     steps:
-    - name: 下载 dists
-      uses: actions/download-artifact@v3
-      with:
-        name: python-package-distributions
-        path: dist/
-    - name: 推送 📦 到 PyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
+      - name: 下载 dists
+        uses: actions/download-artifact@v3
+        with:
+          name: python-package-distributions
+          path: dist/
+      - name: 推送 📦 到 PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
 
   # 发布到 testpypi
   publish-to-testpypi:
@@ -69,7 +69,7 @@ jobs:
     # dev 分支有效
     if: github.ref == 'refs/heads/dev'
     needs:
-    - build
+      - build
     runs-on: ubuntu-latest
 
     environment:
@@ -81,14 +81,14 @@ jobs:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
 
     steps:
-    # 下载打好的包
-    - name: 下载 dists
-      uses: actions/download-artifact@v3
-      with:
-        name: python-package-distributions
-        path: dist/
-    # 上传到 pypa
-    - name: 推送 📦 到 TestPyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
-      with:
-        repository-url: https://test.pypi.org/legacy/
+      # 下载打好的包
+      - name: 下载 dists
+        uses: actions/download-artifact@v3
+        with:
+          name: python-package-distributions
+          path: dist/
+      # 上传到 pypa
+      - name: 推送 📦 到 TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
