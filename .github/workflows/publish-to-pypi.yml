@@ -7,7 +7,7 @@ on:
 jobs:
   # 定义工作流程，这里主要是构建
   build:
-    name: Build distribution 📦
+    name: 构建分发 📦
     runs-on: ubuntu-latest
 
     steps:
