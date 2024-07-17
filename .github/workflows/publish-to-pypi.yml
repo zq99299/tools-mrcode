@@ -2,7 +2,8 @@ name: 推送 🐍 分发 📦 到 PyPI 或 TestPyPI
 
 on:
   push:
-    branches: [ main , dev ]
+    # 仅推送到 main 时执行本流程
+    branches: [ main]
 
 jobs:
   # 定义工作流程，这里主要是构建
@@ -50,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/tools_mrcode
+      url: https://pypi.org/p/tools-mrcode
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
 
@@ -63,6 +64,7 @@ jobs:
       - name: 推送 📦 到 PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
 
+  # 下面的 暂时不使用
   # 发布到 testpypi
   publish-to-testpypi:
     name: 推送 🐍 分发 📦 到 TestPyPI
@@ -75,7 +77,7 @@ jobs:
     environment:
       name: testpypi
       # 这里是你 pypi 项目的地址
-      url: https://test.pypi.org/p/tools_mrcode
+      url: https://test.pypi.org/p/tools-mrcode
 
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
