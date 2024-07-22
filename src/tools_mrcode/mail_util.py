@@ -19,10 +19,10 @@ def send(smtp_host: str, smtp_port: int, smtp_user: str, smtp_pwd: str, sender: 
         smtp.starttls()  # 使用 TLS 加密 (如果使用 465 端口则不需要此行)
         smtp.login(smtp_user, smtp_pwd)
 
-        # 创建 MIMEText 对象
-        msg = MIMEText(body)
+        # 创建 MIMEText 对象, 指定为 html 发送
+        msg = MIMEText(body, 'html')
+        # msg = MIMEText(body)
         msg['Subject'] = subject
         msg['From'] = sender
         msg['To'] = to
         smtp.send_message(msg)
-
