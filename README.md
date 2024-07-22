@@ -10,3 +10,9 @@
 ```
 pip install tools-mrcode
 ```
+
+## 更新日志
+
+### v0.0.5
+
+- 优化：mail_util.send 方法默认由 text 改为  html
